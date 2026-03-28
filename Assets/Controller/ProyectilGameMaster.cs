@@ -1,44 +1,44 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ProyectilGameMaster : MonoBehaviour
 {
-	public float velocidadConstante = 15f;
-	private Rigidbody2D rb;
-	private Vector2 ultimaVelocidad;
+    public ConfigFuerza config;
 
-	void Start()
-	{
-		rb = GetComponent<Rigidbody2D>();
-		// Lanzamiento inicial (el cañón)
-		rb.linearVelocity = transform.right * velocidadConstante;
-	}
+    private Vector2 ultimaVelocidad;
+    private Rigidbody2D rb;
 
-	void Update()
-	{
-		// Guardamos la velocidad del frame anterior para calcular el rebote
-		ultimaVelocidad = rb.linearVelocity;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+		rb.bodyType = RigidbodyType2D.Static;
+    }
 
-		// El "Game Master" asegura que si no hay colisión, la velocidad no decaiga
-		if (rb.linearVelocity.magnitude > 0 && rb.linearVelocity.magnitude != velocidadConstante)
-		{
-			rb.linearVelocity = rb.linearVelocity.normalized * velocidadConstante;
-		}
-	}
+    void Update()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+			rb.bodyType = RigidbodyType2D.Dynamic;
+            Vector2 direccion = transform.right;
+            rb.AddForce(direccion * config.velocidadInicial, ForceMode2D.Impulse);
+        }
+    }
 
-	private void OnCollisionEnter2D(Collision2D colision)
-	{
-		// El "Game Master" calcula la dirección del rebote basado en la normal del impacto
-		var normal = colision.contacts[0].normal;
-		var direccionRebote = Vector2.Reflect(ultimaVelocidad.normalized, normal);
+    void FixedUpdate()
+    {
+        ultimaVelocidad = rb.linearVelocity;
+    }
 
-		// Aplicamos la nueva dirección manteniendo la velocidad constante
-		rb.linearVelocity = direccionRebote * velocidadConstante;
+    private void OnCollisionEnter2D(Collision2D colision)
+    {
+        var normal = colision.contacts[0].normal;
+        var direccionRebote = Vector2.Reflect(ultimaVelocidad.normalized, normal);
 
-		// Lógica de "Historia": Si choca con el suelo, podrías decidir si muere o rebota
-		if (colision.gameObject.CompareTag("Suelo"))
-		{
-			Debug.Log("El Game Master detectó impacto en suelo: Fin del vuelo.");
-			// Aquí podrías frenarlo o disparar un evento de Game Over
-		}
-	}
+        rb.linearVelocity = direccionRebote * ultimaVelocidad.magnitude;
+
+        if (colision.gameObject.CompareTag("Suelo"))
+        {
+            Debug.Log("Impacto en suelo");
+        }
+    }
 }
