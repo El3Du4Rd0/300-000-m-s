@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 62acfdfcc943c2d4087fd55f89bdd2b5
-=======
 guid: ef69a3a0336737446bbccdd8810257b9
->>>>>>> JuanC_tragaperras_Unity
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -100,8 +96,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
-=======
   - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -115,7 +109,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
->>>>>>> JuanC_tragaperras_Unity
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -123,21 +116,12 @@ TextureImporter:
       name: Moneda_0
       rect:
         serializedVersion: 2
-<<<<<<< HEAD
-        x: 6
-        y: 1
-        width: 87
-        height: 90
-      alignment: 0
-      pivot: {x: 0, y: 0}
-=======
         x: 0
         y: 0
         width: 94
         height: 98
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
->>>>>>> JuanC_tragaperras_Unity
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -154,11 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-<<<<<<< HEAD
-    spriteID: 
-=======
     spriteID: d32b32e3bcfb8ad46aa2f35f6fb8cedf
->>>>>>> JuanC_tragaperras_Unity
     internalID: 0
     vertices: []
     indices: 

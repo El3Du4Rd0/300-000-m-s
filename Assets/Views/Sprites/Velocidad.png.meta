@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 80b9096205adf6a428ced274a3139d80
-=======
 guid: d0342edb29e4e9d458ec37b0344e02af
->>>>>>> JuanC_tragaperras_Unity
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,8 +99,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
-=======
   - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -118,44 +112,10 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
->>>>>>> JuanC_tragaperras_Unity
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-<<<<<<< HEAD
-      name: Velocidad_0
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 9
-        width: 57
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 89ac39505dab38dc0800000000000000
-      internalID: -3637858649900856680
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Velocidad_1
-      rect:
-        serializedVersion: 2
-        x: 35
-        y: 9
-        width: 57
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
-=======
       name: Velocidad_1
       rect:
         serializedVersion: 2
@@ -165,7 +125,6 @@ TextureImporter:
         height: 98
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
->>>>>>> JuanC_tragaperras_Unity
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -182,11 +141,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-<<<<<<< HEAD
-    spriteID: 
-=======
     spriteID: 8b6ae2c4db632e5459e89c48c0bcbf2c
->>>>>>> JuanC_tragaperras_Unity
     internalID: 0
     vertices: []
     indices: 

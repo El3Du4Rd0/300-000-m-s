@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 7368419898e64df44a3a18172fb18bfa
-=======
 guid: 90ad6c56ef3243d45a9f56538e338d18
->>>>>>> JuanC_tragaperras_Unity
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -100,8 +96,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
-=======
   - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -115,7 +109,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
->>>>>>> JuanC_tragaperras_Unity
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -123,21 +116,12 @@ TextureImporter:
       name: Tragaperras1_0
       rect:
         serializedVersion: 2
-<<<<<<< HEAD
-        x: 6
-        y: 9
-        width: 532
-        height: 354
-      alignment: 0
-      pivot: {x: 0, y: 0}
-=======
         x: 0
         y: 0
         width: 554
         height: 365
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
->>>>>>> JuanC_tragaperras_Unity
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -154,11 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-<<<<<<< HEAD
-    spriteID: 
-=======
     spriteID: 8a9b25754acd84a4e899b4bf4d937d83
->>>>>>> JuanC_tragaperras_Unity
     internalID: 0
     vertices: []
     indices: 

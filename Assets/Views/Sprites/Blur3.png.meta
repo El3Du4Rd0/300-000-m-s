@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 24fe27fc18faa2045bc09dc29af6dd76
-=======
 guid: 9f0da14bf6199f14ca2cfa3354aa7719
->>>>>>> JuanC_tragaperras_Unity
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -100,8 +96,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
-=======
   - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -115,7 +109,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
->>>>>>> JuanC_tragaperras_Unity
   spriteSheet:
     serializedVersion: 2
     sprites:
