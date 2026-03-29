@@ -22,8 +22,10 @@ public class ProyectilGameMaster : MonoBehaviour
     private bool yaSeDetuvo = false;
     public canion canon;
 
+	public float suavizadoFrenado = 0.1f;
 
-    void Awake()
+
+	void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		rb.bodyType = RigidbodyType2D.Static;
@@ -74,6 +76,15 @@ public class ProyectilGameMaster : MonoBehaviour
 
 		// 2. Guardamos la velocidad antes del impacto
 		ultimaVelocidad = rb.linearVelocity;
+
+		if (config.velocidaMaximaActual < rb.linearVelocity.x)
+		{
+			Debug.Log("Limitando Velocidad");
+			float nuevaMagnitud = Mathf.Lerp(rb.linearVelocity.magnitude, config.velocidaMaximaActual, suavizadoFrenado);
+
+			// Aplicamos la nueva velocidad manteniendo la dirección original
+			rb.linearVelocity = rb.linearVelocity.normalized * nuevaMagnitud;
+		}
 
 		// 3. Mostramos la velocidad en el inspector (solo lectura visual)
 		velocidadActualVisual = rb.linearVelocity;
