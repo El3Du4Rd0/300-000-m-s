@@ -20,7 +20,8 @@ public class canion : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && !yaDisparo)
+        if ( (Keyboard.current.spaceKey.wasPressedThisFrame ||
+            Mouse.current.leftButton.wasPressedThisFrame) && !yaDisparo)
         {
             yaDisparo = true;
 
