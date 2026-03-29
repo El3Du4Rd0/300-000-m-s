@@ -37,6 +37,8 @@ public class canion : MonoBehaviour
                     puntoSalida.rotation
                 );
 
+                FindAnyObjectByType<ScenaryGenerator>().player = nuevo.transform;
+
                 // Lanzarlo
                 ProyectilGameMaster script = nuevo.GetComponent<ProyectilGameMaster>();
                 if (script != null)

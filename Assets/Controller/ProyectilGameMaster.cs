@@ -35,10 +35,5 @@ public class ProyectilGameMaster : MonoBehaviour
         var direccionRebote = Vector2.Reflect(ultimaVelocidad.normalized, normal);
 
         rb.linearVelocity = direccionRebote * ultimaVelocidad.magnitude;
-
-        if (colision.gameObject.CompareTag("Suelo"))
-        {
-            Debug.Log("Impacto en suelo");
-        }
     }
 }
