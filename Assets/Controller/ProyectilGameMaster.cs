@@ -97,10 +97,14 @@ public class ProyectilGameMaster : MonoBehaviour
 		var normal = colision.contacts[0].normal;
 		var direccionRebote = Vector2.Reflect(ultimaVelocidad.normalized, normal);
 		dirreccionReboteDebu = direccionRebote;
-
+		if (config.reboteActual > 0)
+		{
+			rb.linearVelocity = new Vector2(direccionRebote.x, direccionRebote.y * (ultimaVelocidad.magnitude * multiplicadorRebote) - direccionRebote.y * 67);
+		}
 		// Mantenemos la magnitud que tra�a para que el rebote sea perfecto
 		rb.linearVelocity = new Vector2(direccionRebote.x - (ultimaVelocidad.magnitude * multiplicadorFriccion), direccionRebote.y * (ultimaVelocidad.magnitude * multiplicadorRebote) - direccionRebote.y * 67);
 	}
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -110,4 +114,18 @@ public class ProyectilGameMaster : MonoBehaviour
             config.velocidadActual = config.velocidadActual / 2;
         }
     }
+	public void DashVelocidad(int veces)
+	{
+
+		Vector2 direccion = new Vector2(1, 0).normalized;
+		rb.AddForce(direccion * (config.velocidadActual * 1f * (1 + (veces * 0.33f))), ForceMode2D.Impulse);
+	}
+	public void DashBomba(int veces)
+	{
+		Vector2 direccion = new Vector2(1, 1).normalized;
+		rb.AddForce(new Vector2(direccion.x * (config.velocidadActual * 1f * (1 + (veces * 0.33f))), 
+			direccion.y * (config.velocidadActual * 1.25f * (1 + (veces * 0.33f)))), 
+			ForceMode2D.Impulse);
+	}
+
 }
