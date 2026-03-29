@@ -49,7 +49,9 @@ public class Tragaperras : MonoBehaviour
                 {
                     resultadoSlots.Add(result);
                     Debug.Log("Resultados: " + string.Join(", ", resultadoSlots));
-                    resultadoSlots.Clear();
+                    ActualizarEfectosPermamentes(resultadoSlots);
+
+					resultadoSlots.Clear();
                 }));
             } else
             {
@@ -71,4 +73,63 @@ public class Tragaperras : MonoBehaviour
         callback(result);
         rolling--;
     }
+
+	public ConfigFuerza config;
+
+	private void ActualizarEfectosPermamentes(List<string> tags)
+	{
+
+		if (tags == null || tags.Count != 3)
+		{
+			return;
+		}
+
+		if (tags[0] == tags[1] && tags[1] == tags[2])
+		{
+			string tagGanador = tags[0];
+
+			switch (tagGanador)
+			{
+				case "Bomba":
+					Debug.Log("¡Triple Match! Bomba");
+
+					config.velocidadInicial += 5f;
+
+					// Funcion de efecto cuando es triple
+					break;
+
+				case "Corazon":
+					Debug.Log("¡Triple Match! Corazon");
+
+					config.vidasInicial += 1;
+
+					// Funcion de efecto cuando es triple
+					break;
+
+				case "Moneda":
+					Debug.Log("¡Triple Match! Moneda");
+
+					config.vidasInicial += 1;
+
+					// Funcion de efecto cuando es triple
+					break;
+
+				case "Silla":
+					Debug.Log("¡Triple Match! Silla");
+
+					config.reboteInicial += 1;
+
+					// Funcion de efecto cuando es triple
+					break;
+
+				case "Vel":
+					Debug.Log("¡Triple Match! velocidaMaximaInicial");
+
+					config.velocidaMaximaInicial += 1;
+
+					// Funcion de efecto cuando es triple
+					break;
+			}
+		}
+	}
 }
