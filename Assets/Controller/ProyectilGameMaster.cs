@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ProyectilGameMaster : MonoBehaviour
@@ -39,6 +40,16 @@ public class ProyectilGameMaster : MonoBehaviour
         if (colision.gameObject.CompareTag("Suelo"))
         {
             Debug.Log("Impacto en suelo");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Trigger con " + other.gameObject.name);
+        if (other.CompareTag("Obstaculo"))
+        {
+            Debug.Log("Reduce vida");
+            config.vidasActual--;
         }
     }
 }
