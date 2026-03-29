@@ -785,14 +785,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigFuerza
   modedasInicial: 2
-  velocidaMaximaInicial: 200
+  velocidaMaximaInicial: 300
   reboteInicial: 1
-  velocidadInicial: 354.9
+  velocidadInicial: 300
   vidasInicial: 2
   monedasActual: 2
-  velocidaMaximaActual: 200
+  velocidaMaximaActual: 300
   reboteActual: 1
-  velocidadActual: 200
+  velocidadActual: 300
   vidasActual: 2
 --- !u!61 &7143984572295528535
 BoxCollider2D:
