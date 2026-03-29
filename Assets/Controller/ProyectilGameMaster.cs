@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ProyectilGameMaster : MonoBehaviour
@@ -89,4 +90,13 @@ public class ProyectilGameMaster : MonoBehaviour
 		// Mantenemos la magnitud que tra�a para que el rebote sea perfecto
 		rb.linearVelocity = new Vector2(direccionRebote.x - (ultimaVelocidad.magnitude * multiplicadorFriccion), direccionRebote.y * (ultimaVelocidad.magnitude * multiplicadorRebote) - direccionRebote.y * 67);
 	}
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Obstaculo"))
+        {
+            config.vidasActual--;
+            config.velocidadActual = config.velocidadActual / 2;
+        }
+    }
 }
