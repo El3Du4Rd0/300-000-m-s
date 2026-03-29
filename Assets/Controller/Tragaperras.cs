@@ -78,7 +78,6 @@ public class Tragaperras : MonoBehaviour
 
 	private void ActualizarEfectosPermamentes(List<string> tags)
 	{
-
 		if (tags == null || tags.Count != 3)
 		{
 			return;
