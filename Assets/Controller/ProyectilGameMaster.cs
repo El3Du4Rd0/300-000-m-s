@@ -19,8 +19,11 @@ public class ProyectilGameMaster : MonoBehaviour
 
 	public Vector2 dirreccionReboteDebu;
 
-	
-	void Awake()
+    private bool yaSeDetuvo = false;
+    public canion canon;
+
+
+    void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		rb.bodyType = RigidbodyType2D.Static;
@@ -47,12 +50,21 @@ public class ProyectilGameMaster : MonoBehaviour
         transform.rotation = Quaternion.identity;
 
         Vector2 direccion = new Vector2(1, 1).normalized;
-
-        Vector2 direccion = transform.right;
         rb.AddForce(direccion * config.velocidadInicial, ForceMode2D.Impulse);
     }
 
-	void FixedUpdate()
+    void Update()
+    {
+        if (!yaSeDetuvo && rb.linearVelocity.magnitude < 0.1f)
+        {
+            yaSeDetuvo = true;
+
+            // Avisar al cañón
+            canon.JugadorSeDetuvo(transform);
+        }
+    }
+
+    void FixedUpdate()
 	{
 		// 1. Aplicamos nuestra gravedad manualmente
 		// Multiplicamos por FixedDeltaTime para que sea constante independientemente de los FPS
