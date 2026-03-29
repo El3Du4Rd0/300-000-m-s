@@ -4,13 +4,30 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform player;
     public Vector3 offset;
+    void Start()
+    {
+        BuscarJugador();
+    }
 
+    void BuscarJugador()
+    {
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+    }
     void LateUpdate()
     {
-        // Solo sigue la posición
+        if (player == null)
+        {
+            BuscarJugador();
+            return;
+        }
+        // Solo sigue la posiciï¿½n
         transform.position = player.position + offset;
 
-        // Mantiene la rotación fija
+        // Mantiene la rotaciï¿½n fija
         transform.rotation = Quaternion.identity;
     }
 }
