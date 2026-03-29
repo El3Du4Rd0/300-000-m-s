@@ -710,6 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tragaperras
   animator: {fileID: 1751218852}
+  config: {fileID: 0}
 --- !u!95 &1751218852
 Animator:
   serializedVersion: 7
@@ -834,6 +835,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2470697799661176476, guid: b7f7e61297d1ad1499ce1b6ee30e433f, type: 3}
+      propertyPath: prefabCanion
+      value: 
+      objectReference: {fileID: 1015538970124214683, guid: b7f7e61297d1ad1499ce1b6ee30e433f, type: 3}
     - target: {fileID: 5134273227516440043, guid: b7f7e61297d1ad1499ce1b6ee30e433f, type: 3}
       propertyPath: m_SortingOrder
       value: 3

@@ -25,21 +25,32 @@ public class ProyectilGameMaster : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		rb.bodyType = RigidbodyType2D.Static;
 
-		// Eliminamos fricción y gravedad global de Unity para usar la nuestra
+		// Eliminamos fricci�n y gravedad global de Unity para usar la nuestra
 		rb.linearDamping = 0f;
 		rb.angularDamping = 0f;
 		rb.gravityScale = 0f; // Importante: ponemos esto en 0 para controlar la gravedad nosotros
 	}
 
-	public void Lanzar()
-	{
-		//transform.rotation = Quaternion.Euler(0, 0, 52.394f);
-		transform.rotation = Quaternion.Euler(0, 0, 35f);
-		rb.bodyType = RigidbodyType2D.Dynamic;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-		Vector2 direccion = transform.right;
-		rb.linearVelocity = direccion * config.velocidadInicial;
-	}
+
+    public void Lanzar()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        transform.rotation = Quaternion.identity;
+
+        Vector2 direccion = new Vector2(1, 1).normalized;
+
+        Vector2 direccion = transform.right;
+        rb.AddForce(direccion * config.velocidadInicial, ForceMode2D.Impulse);
+    }
 
 	void FixedUpdate()
 	{
@@ -63,7 +74,7 @@ public class ProyectilGameMaster : MonoBehaviour
 		var direccionRebote = Vector2.Reflect(ultimaVelocidad.normalized, normal);
 		dirreccionReboteDebu = direccionRebote;
 
-		// Mantenemos la magnitud que traía para que el rebote sea perfecto
+		// Mantenemos la magnitud que tra�a para que el rebote sea perfecto
 		rb.linearVelocity = new Vector2(direccionRebote.x - (ultimaVelocidad.magnitude * multiplicadorFriccion), direccionRebote.y * (ultimaVelocidad.magnitude * multiplicadorRebote) - direccionRebote.y * 67);
 	}
 }

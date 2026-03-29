@@ -5,9 +5,10 @@ public class canion : MonoBehaviour
 {
     public Sprite dentroDelCanion;
     public Sprite fueraDelCanion;
-
-    public GameObject prefabProyectil; 
-    public Transform puntoSalida;      
+        
+    public GameObject prefabProyectil;
+    public GameObject prefabCanion;
+    public Transform puntoSalida;
 
     private SpriteRenderer sr;
     private bool yaDisparo = false;
@@ -34,7 +35,7 @@ public class canion : MonoBehaviour
                 GameObject nuevo = Instantiate(
                     prefabProyectil,
                     puntoSalida.position,
-                    puntoSalida.rotation
+                    Quaternion.Euler(0, 0, 45f)
                 );
 
                 FindAnyObjectByType<ScenaryGenerator>().player = nuevo.transform;
@@ -43,9 +44,22 @@ public class canion : MonoBehaviour
                 ProyectilGameMaster script = nuevo.GetComponent<ProyectilGameMaster>();
                 if (script != null)
                 {
+                    script.canon = this;
                     script.Lanzar();
                 }
             }
         }
+    }
+
+    public void JugadorSeDetuvo(Transform jugador)
+    {
+        // Crear nuevo cañón en la posición del jugador
+        Instantiate(prefabCanion, jugador.position + new Vector3(0, 2f, 0), Quaternion.identity);
+
+        // Destruir este cañón
+        Destroy(gameObject);
+
+        // Destruir al jugador
+        Destroy(jugador.gameObject);
     }
 }

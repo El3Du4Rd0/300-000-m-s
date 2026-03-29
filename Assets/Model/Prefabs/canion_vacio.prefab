@@ -140,6 +140,7 @@ MonoBehaviour:
   dentroDelCanion: {fileID: -6183815546515349637, guid: c11949b9c92406a4faaee949ac63be15, type: 3}
   fueraDelCanion: {fileID: 1502556083925410237, guid: c11949b9c92406a4faaee949ac63be15, type: 3}
   prefabProyectil: {fileID: 4300823079579535296, guid: 25cf362ca0c72c84db72f62a3b2cdb33, type: 3}
+  prefabCanion: {fileID: 1015538970124214683}
   puntoSalida: {fileID: 7116008742598627250}
 --- !u!1 &6529002689899730490
 GameObject:

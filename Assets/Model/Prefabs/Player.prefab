@@ -785,14 +785,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigFuerza
   modedasInicial: 2
-  velocidaMaximaInicial: 906
+  velocidaMaximaInicial: 200
   reboteInicial: 1
-  velocidadInicial: 770.4
+  velocidadInicial: 200
   vidasInicial: 2
   monedasActual: 2
-  velocidaMaximaActual: 2000
+  velocidaMaximaActual: 200
   reboteActual: 1
-  velocidadActual: 96.5
+  velocidadActual: 200
   vidasActual: 2
 --- !u!61 &7143984572295528535
 BoxCollider2D:
@@ -854,12 +854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProyectilGameMaster
   apendices: {fileID: 5192827174765229533}
   config: {fileID: 1333125898435148435}
-  gravedadPersonalizada: 61.1
-  multiplicadorRebote: 11.16
-  multiplicadorFriccion: 0.75
-  velocidadActualVisual: {x: 0, y: 0}
-  velocidadActualMagnitud: 0
-  velocidadGravidad: {x: 0, y: 0}
+  canon: {fileID: 0}
   rb: {fileID: 9074142577632862459}
 --- !u!233 &5012065277683271502
 HingeJoint2D:

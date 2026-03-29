@@ -28,6 +28,21 @@ public class ScenaryGenerator : MonoBehaviour
 
     void Update()
     {
+        // Si el player no existe, intentar encontrarlo otra vez
+        if (player == null)
+        {
+            GameObject nuevoPlayer = GameObject.FindGameObjectWithTag("Player");
+
+            if (nuevoPlayer != null)
+            {
+                player = nuevoPlayer.transform;
+            }
+            else
+            {
+                return; // No hay player todavía, no hacemos nada
+            }
+        }
+
         // Si el jugador se acerca al final, generamos otro bloque
         if (player.position.x + (bloquesIniciales * longitudBloque) > siguientePosX)
         {
