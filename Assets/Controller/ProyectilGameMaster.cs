@@ -1,27 +1,27 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ProyectilGameMaster : MonoBehaviour
 {
+    public GameObject apendices;
     public ConfigFuerza config;
 
     private Vector2 ultimaVelocidad;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
+	void Awake()
+	{
+		rb = GetComponent<Rigidbody2D>();
 		rb.bodyType = RigidbodyType2D.Static;
-    }
+	}
 
-    void Update()
+    public void Lanzar()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-			rb.bodyType = RigidbodyType2D.Dynamic;
-            Vector2 direccion = transform.right;
-            rb.AddForce(direccion * config.velocidadInicial, ForceMode2D.Impulse);
-        }
+        transform.rotation = Quaternion.Euler(0, 0, 52.394f);
+
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+        Vector2 direccion = transform.right;
+        rb.AddForce(direccion * config.velocidadInicial, ForceMode2D.Impulse);
     }
 
     void FixedUpdate()
