@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.STP;
 
 public class Tragaperras : MonoBehaviour
 {
@@ -14,15 +15,13 @@ public class Tragaperras : MonoBehaviour
     public Animator animator;
     private List<Animator> animSlots = new List<Animator>();
     private List<string> resultadoSlots = new List<string>();
+    public GameObject jugador;
+    public ConfigFuerza config;
+    public static event Action<string> mensaje;
 
-	public GameObject jugador;
-	public ConfigFuerza config;
-
-
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-
         foreach (Animator anim in GetComponentsInChildren<Animator>())
         {
             if (anim.gameObject != gameObject)
@@ -32,16 +31,23 @@ public class Tragaperras : MonoBehaviour
         }
     }
 
-	
-
-	// Update is called once per frame
-	void Update()
+    // Update is called once per frame
+    void Update()
     {
+        jugador = GameObject.FindWithTag("Player");
+
+        if (jugador != null)
+        {
+            config = jugador.GetComponent<ConfigFuerza>();
+        }
+
         if ((Keyboard.current.spaceKey.wasPressedThisFrame ||
             Mouse.current.leftButton.wasPressedThisFrame) &&
             rolling == 0)
         {
-            if (!down){
+            if (!down && config.monedasActual > 0)
+            {
+                config.monedasActual -= 1;
                 down = true;
                 animator.SetBool("Rolling", true);
                 Debug.Log("Iniciar a rodar");
@@ -58,29 +64,24 @@ public class Tragaperras : MonoBehaviour
                     resultadoSlots.Add(result);
                     Debug.Log("Resultados: " + string.Join(", ", resultadoSlots));
 
-					jugador = GameObject.FindWithTag("Player");
-					
+                    if (config != null)
+                    {
+                        ActualizarEfectosPermamentes(resultadoSlots);
+                        ActualizarEfectosTemporales(resultadoSlots);
+                    }
+                    else
+                    {
+                        Debug.LogError("El objeto 'Player' existe, pero no tiene el script 'ConfigFuerza' pegado.");
+                    }
 
-					if (jugador != null)
-					{
-						config = jugador.GetComponent<ConfigFuerza>();
-
-						if (config != null)
-						{
-							ActualizarEfectosPermamentes(resultadoSlots);
-							ActualizarEfectosTemporales(resultadoSlots);
-						}
-						else
-						{
-							Debug.LogError("El objeto 'Player' existe, pero no tiene el script 'ConfigFuerza' pegado.");
-						}
-					}
-
-					
-
-					resultadoSlots.Clear();
+                    resultadoSlots.Clear();
                 }));
-            } else
+            }
+            else if (!down)
+            {
+                mensaje?.Invoke("No money?");
+            }
+            else
             {
                 animator.SetBool("Rolling", false);
                 Debug.Log("Aplicar buffs");
@@ -101,99 +102,78 @@ public class Tragaperras : MonoBehaviour
         rolling--;
     }
 
-	
+    private void ActualizarEfectosPermamentes(List<string> tags)
+    {
+        if (tags == null || tags.Count != 3)
+        {
+            return;
+        }
 
-	private void ActualizarEfectosPermamentes(List<string> tags)
-	{
-		if (tags == null || tags.Count != 3)
-		{
-			return;
-		}
+        if (tags[0] == tags[1] && tags[1] == tags[2])
+        {
+            string tagGanador = tags[0];
 
-		if (tags[0] == tags[1] && tags[1] == tags[2])
-		{
-			string tagGanador = tags[0];
+            switch (tagGanador)
+            {
+                case "Bomba":
+                    mensaje?.Invoke("Permanent upgrade to bombs");
+                    config.velocidadInicial += 5f;
+                    break;
 
-			switch (tagGanador)
-			{
-				case "Bomba":
+                case "Corazon":
+                    mensaje?.Invoke("Permanent upgrade to lives");
+                    config.vidasInicial += 1;
+                    break;
 
-					config.velocidadInicial += 5f;
+                case "Moneda":
+                    mensaje?.Invoke("Permanent upgrade to coins");
+                    config.vidasInicial += 1;
+                    break;
 
-					break;
+                case "Silla":
+                    mensaje?.Invoke("Permanent upgrade to chairs");
+                    config.reboteInicial += 1;
+                    break;
 
-				case "Corazon":
+                case "Vel":
+                    mensaje?.Invoke("Permanent upgrade to speed");
+                    config.velocidaMaximaInicial += 1;
+                    break;
+            }
+        }
+    }
 
-					config.vidasInicial += 1;
+    private void ActualizarEfectosTemporales(List<string> tags)
+    {
 
-					break;
+        if (tags == null || (tags[0] == tags[1] && tags[1] == tags[2]))
+        {
+            return;
+        }
 
-				case "Moneda":
+        var conteoTags = tags.GroupBy(x => x)
+                         .ToDictionary(g => g.Key, g => g.Count());
 
-					config.vidasInicial += 1;
-					break;
-
-				case "Silla":
-
-					config.reboteInicial += 1;
-					break;
-
-				case "Vel":
-
-					config.velocidaMaximaInicial += 1;
-					break;
-			}
-		}
-	}
-
-	private void ActualizarEfectosTemporales(List<string> tags)
-	{
-
-		if (tags == null || (tags[0] == tags[1] && tags[1] == tags[2]))
-		{
-			return;
-		}
-
-		var conteoTags = tags.GroupBy(x => x)
-						 .ToDictionary(g => g.Key, g => g.Count());
-
-
-
-		foreach (var conteadasTags in conteoTags)
-		{
-			switch (conteadasTags.Key)
-			{
-				case "Bomba":
-
-					config.velocidadActual += (int)conteadasTags.Value;
-
-					break;
-
-				case "Corazon":
-
-					config.vidasActual += (int)conteadasTags.Value;
-
-					break;
-
-				case "Moneda":
-
-
-					config.monedasActual += (int)conteadasTags.Value;
-
-					break;
-
-				case "Silla":
-
-					config.reboteActual += (int)conteadasTags.Value;
-
-					break;
-
-				case "Vel":
-
-					config.velocidaMaximaActual += (int)conteadasTags.Value;
-
-					break;
-			}
-		}
-	}
+        foreach (var conteadasTags in conteoTags)
+        {
+            switch (conteadasTags.Key)
+            {
+                case "Bomba":
+                    config.velocidadActual += (int)conteadasTags.Value;
+                    break;
+                case "Corazon":
+                    config.vidasActual += (int)conteadasTags.Value;
+                    break;
+                case "Moneda":
+                    config.monedasActual += (int)conteadasTags.Value;
+                    break;
+                case "Silla":
+                    config.reboteActual += (int)conteadasTags.Value;
+                    break;
+                case "Vel":
+                    config.velocidaMaximaActual += (int)conteadasTags.Value;
+                    break;
+            }
+        }
+    }
 }

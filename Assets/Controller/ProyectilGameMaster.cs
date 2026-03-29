@@ -40,6 +40,7 @@ public class ProyectilGameMaster : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+		config.monedasActual += 1;
     }
 
 

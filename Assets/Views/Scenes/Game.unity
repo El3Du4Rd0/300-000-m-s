@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 294075634}
   - component: {fileID: 294075633}
   - component: {fileID: 294075635}
+  - component: {fileID: 294075636}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -364,6 +365,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Win
   config: {fileID: 1333125898435148435, guid: 25cf362ca0c72c84db72f62a3b2cdb33, type: 3}
   textoVelocidad: {fileID: 1072491838}
+--- !u!114 &294075636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294075632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f74f35ed4142841925ec049a77a29f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleGenerator
+  obstaculoPrefab: {fileID: 3322498072995805632, guid: d41c0a8a6b16dff40af7be20f3eb377e, type: 3}
+  spritesObstaculos:
+  - {fileID: 2986956735163480491, guid: 81df1636e7ca53c49b910c1b6762f931, type: 3}
+  - {fileID: -6472012598501741615, guid: 27aa35bf85a7d6f42bf441a101e8b8aa, type: 3}
+  - {fileID: 3940914792208459493, guid: 37d95a781454a0a4cba84b9a055f80d3, type: 3}
+  - {fileID: 8428034671524984058, guid: ac7e8749567808e4f9787d93be601f06, type: 3}
+  - {fileID: 8242335348359579857, guid: a24c8d915b0b2654aafbaea404002a48, type: 3}
+  distanciaFrente: 10
+  intervalo: 2
+  tiempoVida: 5
 --- !u!224 &366265725 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 156889220433593552, guid: 82506b66c5c60e049b4b3e4c3bff6476, type: 3}
