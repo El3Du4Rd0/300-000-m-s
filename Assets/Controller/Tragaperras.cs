@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.STP;
 
 public class Tragaperras : MonoBehaviour
 {
@@ -14,15 +15,12 @@ public class Tragaperras : MonoBehaviour
     public Animator animator;
     private List<Animator> animSlots = new List<Animator>();
     private List<string> resultadoSlots = new List<string>();
+    public GameObject jugador;
+    public ConfigFuerza config;
 
-	public GameObject jugador;
-	public ConfigFuerza config;
-
-
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-
         foreach (Animator anim in GetComponentsInChildren<Animator>())
         {
             if (anim.gameObject != gameObject)
@@ -32,16 +30,23 @@ public class Tragaperras : MonoBehaviour
         }
     }
 
-	
-
-	// Update is called once per frame
-	void Update()
+    // Update is called once per frame
+    void Update()
     {
+        jugador = GameObject.FindWithTag("Player");
+
+        if (jugador != null)
+        {
+            config = jugador.GetComponent<ConfigFuerza>();
+        }
+
         if ((Keyboard.current.spaceKey.wasPressedThisFrame ||
             Mouse.current.leftButton.wasPressedThisFrame) &&
             rolling == 0)
         {
-            if (!down){
+            if (!down && config.monedasActual > 0)
+            {
+                config.monedasActual -= 1;
                 down = true;
                 animator.SetBool("Rolling", true);
                 Debug.Log("Iniciar a rodar");
@@ -58,29 +63,24 @@ public class Tragaperras : MonoBehaviour
                     resultadoSlots.Add(result);
                     Debug.Log("Resultados: " + string.Join(", ", resultadoSlots));
 
-					jugador = GameObject.FindWithTag("Player");
-					
+                    if (config != null)
+                    {
+                        ActualizarEfectosPermamentes(resultadoSlots);
+                        ActualizarEfectosTemporales(resultadoSlots);
+                    }
+                    else
+                    {
+                        Debug.LogError("El objeto 'Player' existe, pero no tiene el script 'ConfigFuerza' pegado.");
+                    }
 
-					if (jugador != null)
-					{
-						config = jugador.GetComponent<ConfigFuerza>();
-
-						if (config != null)
-						{
-							ActualizarEfectosPermamentes(resultadoSlots);
-							ActualizarEfectosTemporales(resultadoSlots);
-						}
-						else
-						{
-							Debug.LogError("El objeto 'Player' existe, pero no tiene el script 'ConfigFuerza' pegado.");
-						}
-					}
-
-					
-
-					resultadoSlots.Clear();
+                    resultadoSlots.Clear();
                 }));
-            } else
+            }
+            else if (!down)
+            {
+                Debug.Log("No tienes monedas suficientes para jugar.");
+            }
+            else
             {
                 animator.SetBool("Rolling", false);
                 Debug.Log("Aplicar buffs");
@@ -100,100 +100,97 @@ public class Tragaperras : MonoBehaviour
         callback(result);
         rolling--;
     }
+    private void ActualizarEfectosPermamentes(List<string> tags)
+    {
+        if (tags == null || tags.Count != 3)
+        {
+            return;
+        }
 
-	
+        if (tags[0] == tags[1] && tags[1] == tags[2])
+        {
+            string tagGanador = tags[0];
 
-	private void ActualizarEfectosPermamentes(List<string> tags)
-	{
-		if (tags == null || tags.Count != 3)
-		{
-			return;
-		}
+            switch (tagGanador)
+            {
+                case "Bomba":
 
-		if (tags[0] == tags[1] && tags[1] == tags[2])
-		{
-			string tagGanador = tags[0];
+                    config.velocidadInicial += 5f;
 
-			switch (tagGanador)
-			{
-				case "Bomba":
+                    break;
 
-					config.velocidadInicial += 5f;
+                case "Corazon":
 
-					break;
+                    config.vidasInicial += 1;
 
-				case "Corazon":
+                    break;
 
-					config.vidasInicial += 1;
+                case "Moneda":
 
-					break;
+                    config.vidasInicial += 1;
+                    break;
 
-				case "Moneda":
+                case "Silla":
 
-					config.vidasInicial += 1;
-					break;
+                    config.reboteInicial += 1;
+                    break;
 
-				case "Silla":
+                case "Vel":
 
-					config.reboteInicial += 1;
-					break;
+                    config.velocidaMaximaInicial += 1;
+                    break;
+            }
+        }
+    }
 
-				case "Vel":
+    private void ActualizarEfectosTemporales(List<string> tags)
+    {
 
-					config.velocidaMaximaInicial += 1;
-					break;
-			}
-		}
-	}
+        if (tags == null || (tags[0] == tags[1] && tags[1] == tags[2]))
+        {
+            return;
+        }
 
-	private void ActualizarEfectosTemporales(List<string> tags)
-	{
-
-		if (tags == null || (tags[0] == tags[1] && tags[1] == tags[2]))
-		{
-			return;
-		}
-
-		var conteoTags = tags.GroupBy(x => x)
-						 .ToDictionary(g => g.Key, g => g.Count());
+        var conteoTags = tags.GroupBy(x => x)
+                         .ToDictionary(g => g.Key, g => g.Count());
 
 
 
-		foreach (var conteadasTags in conteoTags)
-		{
-			switch (conteadasTags.Key)
-			{
-				case "Bomba":
+        foreach (var conteadasTags in conteoTags)
+        {
+            switch (conteadasTags.Key)
+            {
+                case "Bomba":
 
-					config.velocidadActual += (int)conteadasTags.Value;
+                    config.velocidadActual += (int)conteadasTags.Value;
 
-					break;
+                    break;
 
-				case "Corazon":
+                case "Corazon":
 
-					config.vidasActual += (int)conteadasTags.Value;
+                    config.vidasActual += (int)conteadasTags.Value;
 
-					break;
+                    break;
 
-				case "Moneda":
+                case "Moneda":
 
 
-					config.monedasActual += (int)conteadasTags.Value;
+                    config.monedasActual += (int)conteadasTags.Value;
 
-					break;
+                    break;
 
-				case "Silla":
+                case "Silla":
 
-					config.reboteActual += (int)conteadasTags.Value;
+                    config.reboteActual += (int)conteadasTags.Value;
 
-					break;
+                    break;
 
-				case "Vel":
+                case "Vel":
 
-					config.velocidaMaximaActual += (int)conteadasTags.Value;
+                    config.velocidaMaximaActual += (int)conteadasTags.Value;
 
-					break;
-			}
-		}
-	}
+                    break;
+            }
+        }
+    }
 }
