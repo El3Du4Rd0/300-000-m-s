@@ -17,6 +17,7 @@ public class Tragaperras : MonoBehaviour
     private List<string> resultadoSlots = new List<string>();
     public GameObject jugador;
     public ConfigFuerza config;
+    public static event Action<string> mensaje;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -78,7 +79,7 @@ public class Tragaperras : MonoBehaviour
             }
             else if (!down)
             {
-                Debug.Log("No tienes monedas suficientes para jugar.");
+                mensaje?.Invoke("No money?");
             }
             else
             {
@@ -100,6 +101,7 @@ public class Tragaperras : MonoBehaviour
         callback(result);
         rolling--;
     }
+
     private void ActualizarEfectosPermamentes(List<string> tags)
     {
         if (tags == null || tags.Count != 3)
@@ -114,29 +116,27 @@ public class Tragaperras : MonoBehaviour
             switch (tagGanador)
             {
                 case "Bomba":
-
+                    mensaje?.Invoke("Permanent upgrade to bombs");
                     config.velocidadInicial += 5f;
-
                     break;
 
                 case "Corazon":
-
+                    mensaje?.Invoke("Permanent upgrade to lives");
                     config.vidasInicial += 1;
-
                     break;
 
                 case "Moneda":
-
+                    mensaje?.Invoke("Permanent upgrade to coins");
                     config.vidasInicial += 1;
                     break;
 
                 case "Silla":
-
+                    mensaje?.Invoke("Permanent upgrade to chairs");
                     config.reboteInicial += 1;
                     break;
 
                 case "Vel":
-
+                    mensaje?.Invoke("Permanent upgrade to speed");
                     config.velocidaMaximaInicial += 1;
                     break;
             }
@@ -154,41 +154,24 @@ public class Tragaperras : MonoBehaviour
         var conteoTags = tags.GroupBy(x => x)
                          .ToDictionary(g => g.Key, g => g.Count());
 
-
-
         foreach (var conteadasTags in conteoTags)
         {
             switch (conteadasTags.Key)
             {
                 case "Bomba":
-
                     config.velocidadActual += (int)conteadasTags.Value;
-
                     break;
-
                 case "Corazon":
-
                     config.vidasActual += (int)conteadasTags.Value;
-
                     break;
-
                 case "Moneda":
-
-
                     config.monedasActual += (int)conteadasTags.Value;
-
                     break;
-
                 case "Silla":
-
                     config.reboteActual += (int)conteadasTags.Value;
-
                     break;
-
                 case "Vel":
-
                     config.velocidaMaximaActual += (int)conteadasTags.Value;
-
                     break;
             }
         }
