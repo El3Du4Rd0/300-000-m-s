@@ -787,7 +787,7 @@ MonoBehaviour:
   modedasInicial: 2
   velocidaMaximaInicial: 200
   reboteInicial: 1
-  velocidadInicial: 200
+  velocidadInicial: 354.9
   vidasInicial: 2
   monedasActual: 2
   velocidaMaximaActual: 200
@@ -854,8 +854,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProyectilGameMaster
   apendices: {fileID: 5192827174765229533}
   config: {fileID: 1333125898435148435}
-  canon: {fileID: 0}
+  gravedadPersonalizada: 61
+  multiplicadorRebote: 11.06
+  multiplicadorFriccion: 0.75
+  velocidadActualVisual: {x: 0, y: 0}
+  velocidadActualMagnitud: 0
+  velocidadGravidad: {x: 0, y: 0}
   rb: {fileID: 9074142577632862459}
+  dirreccionReboteDebu: {x: 0, y: 0}
+  canon: {fileID: 0}
+  suavizadoFrenado: 0.1
 --- !u!233 &5012065277683271502
 HingeJoint2D:
   m_ObjectHideFlags: 0
