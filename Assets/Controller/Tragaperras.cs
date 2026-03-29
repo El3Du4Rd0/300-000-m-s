@@ -14,9 +14,15 @@ public class Tragaperras : MonoBehaviour
     public Animator animator;
     private List<Animator> animSlots = new List<Animator>();
     private List<string> resultadoSlots = new List<string>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+	public GameObject jugador;
+	public ConfigFuerza config;
+
+
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
     {
+
         foreach (Animator anim in GetComponentsInChildren<Animator>())
         {
             if (anim.gameObject != gameObject)
@@ -26,8 +32,10 @@ public class Tragaperras : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+	
+
+	// Update is called once per frame
+	void Update()
     {
         if ((Keyboard.current.spaceKey.wasPressedThisFrame ||
             Mouse.current.leftButton.wasPressedThisFrame) &&
@@ -49,7 +57,26 @@ public class Tragaperras : MonoBehaviour
                 {
                     resultadoSlots.Add(result);
                     Debug.Log("Resultados: " + string.Join(", ", resultadoSlots));
-                    ActualizarEfectosPermamentes(resultadoSlots);
+
+					jugador = GameObject.FindWithTag("Player");
+					
+
+					if (jugador != null)
+					{
+						config = jugador.GetComponent<ConfigFuerza>();
+
+						if (config != null)
+						{
+							ActualizarEfectosPermamentes(resultadoSlots);
+							ActualizarEfectosTemporales(resultadoSlots);
+						}
+						else
+						{
+							Debug.LogError("El objeto 'Player' existe, pero no tiene el script 'ConfigFuerza' pegado.");
+						}
+					}
+
+					
 
 					resultadoSlots.Clear();
                 }));
@@ -74,7 +101,7 @@ public class Tragaperras : MonoBehaviour
         rolling--;
     }
 
-	public ConfigFuerza config;
+	
 
 	private void ActualizarEfectosPermamentes(List<string> tags)
 	{
@@ -91,43 +118,81 @@ public class Tragaperras : MonoBehaviour
 			switch (tagGanador)
 			{
 				case "Bomba":
-					Debug.Log("¡Triple Match! Bomba");
 
 					config.velocidadInicial += 5f;
 
-					// Funcion de efecto cuando es triple
 					break;
 
 				case "Corazon":
-					Debug.Log("¡Triple Match! Corazon");
 
 					config.vidasInicial += 1;
 
-					// Funcion de efecto cuando es triple
 					break;
 
 				case "Moneda":
-					Debug.Log("¡Triple Match! Moneda");
 
 					config.vidasInicial += 1;
-
-					// Funcion de efecto cuando es triple
 					break;
 
 				case "Silla":
-					Debug.Log("¡Triple Match! Silla");
 
 					config.reboteInicial += 1;
-
-					// Funcion de efecto cuando es triple
 					break;
 
 				case "Vel":
-					Debug.Log("¡Triple Match! velocidaMaximaInicial");
 
 					config.velocidaMaximaInicial += 1;
+					break;
+			}
+		}
+	}
 
-					// Funcion de efecto cuando es triple
+	private void ActualizarEfectosTemporales(List<string> tags)
+	{
+
+		if (tags == null || (tags[0] == tags[1] && tags[1] == tags[2]))
+		{
+			return;
+		}
+
+		var conteoTags = tags.GroupBy(x => x)
+						 .ToDictionary(g => g.Key, g => g.Count());
+
+
+
+		foreach (var conteadasTags in conteoTags)
+		{
+			switch (conteadasTags.Key)
+			{
+				case "Bomba":
+
+					config.velocidadActual += (int)conteadasTags.Value;
+
+					break;
+
+				case "Corazon":
+
+					config.vidasActual += (int)conteadasTags.Value;
+
+					break;
+
+				case "Moneda":
+
+
+					config.monedasActual += (int)conteadasTags.Value;
+
+					break;
+
+				case "Silla":
+
+					config.reboteActual += (int)conteadasTags.Value;
+
+					break;
+
+				case "Vel":
+
+					config.velocidaMaximaActual += (int)conteadasTags.Value;
+
 					break;
 			}
 		}
