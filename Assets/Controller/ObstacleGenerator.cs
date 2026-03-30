@@ -48,7 +48,7 @@ public class ObstacleGenerator : MonoBehaviour
 
         Vector3 posicion = new Vector3(
             player.position.x + distanciaFrente,
-            Random.Range(-2f, 2f),
+            10,
             0
         );
 

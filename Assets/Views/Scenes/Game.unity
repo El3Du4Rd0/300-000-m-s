@@ -384,9 +384,9 @@ MonoBehaviour:
   - {fileID: 3940914792208459493, guid: 37d95a781454a0a4cba84b9a055f80d3, type: 3}
   - {fileID: 8428034671524984058, guid: ac7e8749567808e4f9787d93be601f06, type: 3}
   - {fileID: 8242335348359579857, guid: a24c8d915b0b2654aafbaea404002a48, type: 3}
-  distanciaFrente: 10
+  distanciaFrente: 50
   intervalo: 2
-  tiempoVida: 5
+  tiempoVida: 10
 --- !u!224 &366265725 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 156889220433593552, guid: 82506b66c5c60e049b4b3e4c3bff6476, type: 3}
@@ -1492,6 +1492,7 @@ MonoBehaviour:
   animator: {fileID: 1751218852}
   jugador: {fileID: 0}
   config: {fileID: 0}
+  proyectilGameMaster: {fileID: 0}
 --- !u!95 &1751218852
 Animator:
   serializedVersion: 7
