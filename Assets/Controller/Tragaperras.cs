@@ -9,7 +9,7 @@ using static UnityEngine.Rendering.STP;
 
 public class Tragaperras : MonoBehaviour
 {
-    private string[] opciones = { "Null", "Bomba", "Corazon", "Moneda", "Silla", "Vel" };
+    private string[] opciones = { "Null", "Bomba", "Corazon", "Moneda", "Vel" };
     private int rolling = 0;
     private bool down = false;
     public Animator animator;
