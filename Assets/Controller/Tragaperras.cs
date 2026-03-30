@@ -97,7 +97,10 @@ public class Tragaperras : MonoBehaviour
 
 				resultadoSlots.Clear();
 			}
-        }
+        } else if (config.vidasActual == 0)
+        {
+			mensaje?.Invoke("No Life No Gambling");
+		}
     }
 
     IEnumerator Tirar(float seg, Animator anim, Action<string> callback)
