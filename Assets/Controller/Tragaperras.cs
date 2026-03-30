@@ -18,9 +18,10 @@ public class Tragaperras : MonoBehaviour
     public GameObject jugador;
     public ConfigFuerza config;
     public static event Action<string> mensaje;
+	public ProyectilGameMaster proyectilGameMaster;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
     {
         foreach (Animator anim in GetComponentsInChildren<Animator>())
         {
@@ -35,13 +36,17 @@ public class Tragaperras : MonoBehaviour
     void Update()
     {
         jugador = GameObject.FindWithTag("Player");
+        Debug.Log(jugador);
 
-        if (jugador != null)
+        if(jugador == null)
         {
-            config = jugador.GetComponent<ConfigFuerza>();
-        }
+            return;
+		}
 
-        if ((Keyboard.current.spaceKey.wasPressedThisFrame ||
+		config = jugador.GetComponent<ConfigFuerza>();
+		proyectilGameMaster = jugador.GetComponent<ProyectilGameMaster>();
+
+		if ((Keyboard.current.spaceKey.wasPressedThisFrame ||
             Mouse.current.leftButton.wasPressedThisFrame) &&
             rolling == 0)
         {
@@ -63,18 +68,19 @@ public class Tragaperras : MonoBehaviour
                 {
                     resultadoSlots.Add(result);
                     Debug.Log("Resultados: " + string.Join(", ", resultadoSlots));
+					
 
-                    if (config != null)
+					if (config != null)
                     {
                         ActualizarEfectosPermamentes(resultadoSlots);
-                        ActualizarEfectosTemporales(resultadoSlots);
+                        
                     }
                     else
                     {
                         Debug.LogError("El objeto 'Player' existe, pero no tiene el script 'ConfigFuerza' pegado.");
                     }
 
-                    resultadoSlots.Clear();
+                    
                 }));
             }
             else if (!down)
@@ -83,10 +89,13 @@ public class Tragaperras : MonoBehaviour
             }
             else
             {
-                animator.SetBool("Rolling", false);
+				ActualizarEfectosTemporales(resultadoSlots);
+				animator.SetBool("Rolling", false);
                 Debug.Log("Aplicar buffs");
                 down = false;
-            }
+
+				resultadoSlots.Clear();
+			}
         }
     }
 
@@ -160,7 +169,9 @@ public class Tragaperras : MonoBehaviour
             {
                 case "Bomba":
                     config.velocidadActual += (int)conteadasTags.Value;
-                    break;
+					proyectilGameMaster.DashBomba((int)conteadasTags.Value);
+
+					break;
                 case "Corazon":
                     config.vidasActual += (int)conteadasTags.Value;
                     break;
@@ -172,7 +183,8 @@ public class Tragaperras : MonoBehaviour
                     break;
                 case "Vel":
                     config.velocidaMaximaActual += (int)conteadasTags.Value;
-                    break;
+					proyectilGameMaster.DashVelocidad((int)conteadasTags.Value);
+					break;
             }
         }
     }
