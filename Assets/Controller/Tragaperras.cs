@@ -129,27 +129,27 @@ public class Tragaperras : MonoBehaviour
             switch (tagGanador)
             {
                 case "Bomba":
-                    mensaje?.Invoke("Permanent upgrade to bombs");
+                    //mensaje?.Invoke("Permanent upgrade to bombs");
                     config.velocidadInicial += 5f;
                     break;
 
                 case "Corazon":
-                    mensaje?.Invoke("Permanent upgrade to lives");
+                    //mensaje?.Invoke("Permanent upgrade to lives");
                     config.vidasInicial += 1;
                     break;
 
                 case "Moneda":
-                    mensaje?.Invoke("Permanent upgrade to coins");
+                    //mensaje?.Invoke("Permanent upgrade to coins");
                     config.vidasInicial += 1;
                     break;
 
                 case "Silla":
-                    mensaje?.Invoke("Permanent upgrade to chairs");
+                    //mensaje?.Invoke("Permanent upgrade to chairs");
                     config.reboteInicial += 1;
                     break;
 
                 case "Vel":
-                    mensaje?.Invoke("Permanent upgrade to speed");
+                    mensaje?.Invoke("Max speed increased");
                     config.velocidaMaximaInicial += 1;
                     break;
             }
