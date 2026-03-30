@@ -114,7 +114,7 @@ public class ProyectilGameMaster : MonoBehaviour
             config.vidasActual--;
             config.velocidadActual = config.velocidadActual / 2;
         }
-    }
+	}
 	public void DashVelocidad(int veces)
 	{
 

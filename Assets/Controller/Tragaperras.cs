@@ -48,7 +48,8 @@ public class Tragaperras : MonoBehaviour
 
 		if ((Keyboard.current.spaceKey.wasPressedThisFrame ||
             Mouse.current.leftButton.wasPressedThisFrame) &&
-            rolling == 0)
+            rolling == 0 &&
+			config.vidasActual > 0)
         {
             if (!down && config.monedasActual > 0)
             {
