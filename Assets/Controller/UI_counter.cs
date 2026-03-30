@@ -20,6 +20,7 @@ public class UI_counter : MonoBehaviour
         if (jugador == null)
         {
             jugador = GameObject.FindWithTag("Player");
+            return;
         }
         ConfigFuerza modelJugador = jugador.GetComponent<ConfigFuerza>();
         switch (tipoDato)
